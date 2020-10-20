@@ -3,8 +3,8 @@ info:
   title: Social_Creators_teamG
   version: 0.0.0
 servers:
-  - url: https://virtserver.swaggerhub.com/Khmer495/Social_Creators_teamG/0.0.0
-    description: SwaggerHub API Auto Mocking
+  - url: https://7789d2f1-5040-4f25-ab54-04a9baf1c900.mock.pstmn.io
+    description: Mock Server
   - url: localhost:8080
     description: ローカル環境
 tags:
