@@ -75,9 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserDetail'
+                $ref: '#/components/schemas/UserDetail'
 
     put:
       tags:
@@ -258,9 +256,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RestaurantDetail'
+                $ref: '#/components/schemas/RestaurantDetail'
 
     put:
       tags:
@@ -358,7 +354,7 @@ paths:
                   description: キッズルーム・託児施設
       responses:
         200:
-          description: Created
+          description: OK
           content:
             application/json:
               schema:
