@@ -3,7 +3,7 @@ info:
   title: SocialCreatorsTeamG
   version: 0.0.0
 servers:
-  - url: https://7789d2f1-5040-4f25-ab54-04a9baf1c900.mock.pstmn.io
+  - url: https://72daaa11-a960-440a-bb1c-41e6070cc90b.mock.pstmn.io
     description: Mock Server
   - url: localhost:8080
     description: ローカル環境
