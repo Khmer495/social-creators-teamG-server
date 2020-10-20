@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: social-creators-teamG
-  version: 0.0.0
+  version: 0.0.1
 servers:
   - url: https://72daaa11-a960-440a-bb1c-41e6070cc90b.mock.pstmn.io
     description: Mock Server
