@@ -27,6 +27,38 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserAbout'
 
+    post:
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                family_name:
+                  type: string
+                  example: 大阪
+                first_name:
+                  type: string
+                  example: 太郎
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+              required:
+                - family_name
+                - first_name
+                - email
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+
   /users/{user_id}:
     get:
       tags:
@@ -47,6 +79,53 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserDetail'
 
+    put:
+      tags:
+        - user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                family_name:
+                  type: string
+                  example: 大阪
+                first_name:
+                  type: string
+                  example: 太郎
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+
+    delete:
+      tags:
+        - user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+
   /restaurants:
     get:
       tags:
@@ -61,12 +140,114 @@ paths:
                 items:
                   $ref: '#/components/schemas/RestaurantAbout'
 
-  /restaurants/{restaurants_id}:
+    post:
+      tags:
+        - restaurant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: スターバックスコーヒー ＬＡＱＵＥ四条烏丸店
+                address:
+                  type: string
+                  example: 京都府京都市下京区函谷鉾町四条通室町東入１０１ アーバンネット四条烏丸ビル
+                lat:
+                  type: number
+                  format: float
+                  description: 緯度
+                  example: 35.003873
+                lng:
+                  type: number
+                  format: float
+                  description: 経度
+                  example: 135.759245
+                prefecture_id:
+                  $ref: '#/components/schemas/Id'
+                city_id:
+                  $ref: '#/components/schemas/Id'
+                open_time:
+                  $ref: '#/components/schemas/Time'
+                close_time:
+                  $ref: '#/components/schemas/Time'
+                from_kIds_welcome_time:
+                  $ref: '#/components/schemas/Time'
+                to_kIds_welcome_time:
+                  $ref: '#/components/schemas/Time'
+                menu:
+                  type: string
+                  example: ここにメニューが入ります
+                is_ok_baby_car:
+                  type: boolean
+                  description: ベビーカー入店 OK
+                  example: True
+                is_zashiki:
+                  type: boolean
+                  description: 座敷
+                  example: False
+                is_private_room:
+                  type: boolean
+                  description: 個室
+                is_parking_area:
+                  type: boolean
+                  description: 駐車場
+                is_luggage_storage:
+                  type: boolean
+                  description: 荷物置き(席の近くに)
+                is_nap_space:
+                  type: boolean
+                  description: お昼寝スペース
+                is_baby_bed:
+                  type: boolean
+                  description: ベビーベッド・おむつ交換台
+                is_kids_menu:
+                  type: boolean
+                  description: お子様メニュー
+                is_kids_chair:
+                  type: boolean
+                  description: お子様用椅子
+                is_kids_dish:
+                  type: boolean
+                  description: お子様用食器
+                is_kids_toilet:
+                  type: boolean
+                  description: お子様用トイレ
+                is_kids_toy:
+                  type: boolean
+                  description: お子様用の本・おもちゃ
+                is_ok_baby_food:
+                  type: boolean
+                  description: 離乳食の持ち込み OK
+                is_nursing_room:
+                  type: boolean
+                  description: 授乳室・スペース
+                is_kids_room:
+                  type: boolean
+                  description: キッズルーム・託児施設
+              required:
+                - name
+                - address
+                - lat
+                - lng
+                - prefecture_id
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantDetail'
+
+  /restaurants/{restaurant_id}:
     get:
       tags:
         - restaurant
       parameters:
-        - name: restaurants_id
+        - name: restaurant_id
           in: path
           required: true
           schema:
@@ -80,6 +261,121 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RestaurantDetail'
+
+    put:
+      tags:
+        - restaurant
+      parameters:
+        - name: restaurant_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: スターバックスコーヒー ＬＡＱＵＥ四条烏丸店
+                address:
+                  type: string
+                  example: 京都府京都市下京区函谷鉾町四条通室町東入１０１ アーバンネット四条烏丸ビル
+                lat:
+                  type: number
+                  format: float
+                  description: 緯度
+                  example: 35.003873
+                lng:
+                  type: number
+                  format: float
+                  description: 経度
+                  example: 135.759245
+                prefecture_id:
+                  $ref: '#/components/schemas/Id'
+                city_id:
+                  $ref: '#/components/schemas/Id'
+                open_time:
+                  $ref: '#/components/schemas/Time'
+                close_time:
+                  $ref: '#/components/schemas/Time'
+                from_kIds_welcome_time:
+                  $ref: '#/components/schemas/Time'
+                to_kIds_welcome_time:
+                  $ref: '#/components/schemas/Time'
+                menu:
+                  type: string
+                  example: ここにメニューが入ります
+                is_ok_baby_car:
+                  type: boolean
+                  description: ベビーカー入店 OK
+                  example: True
+                is_zashiki:
+                  type: boolean
+                  description: 座敷
+                  example: False
+                is_private_room:
+                  type: boolean
+                  description: 個室
+                is_parking_area:
+                  type: boolean
+                  description: 駐車場
+                is_luggage_storage:
+                  type: boolean
+                  description: 荷物置き(席の近くに)
+                is_nap_space:
+                  type: boolean
+                  description: お昼寝スペース
+                is_baby_bed:
+                  type: boolean
+                  description: ベビーベッド・おむつ交換台
+                is_kids_menu:
+                  type: boolean
+                  description: お子様メニュー
+                is_kids_chair:
+                  type: boolean
+                  description: お子様用椅子
+                is_kids_dish:
+                  type: boolean
+                  description: お子様用食器
+                is_kids_toilet:
+                  type: boolean
+                  description: お子様用トイレ
+                is_kids_toy:
+                  type: boolean
+                  description: お子様用の本・おもちゃ
+                is_ok_baby_food:
+                  type: boolean
+                  description: 離乳食の持ち込み OK
+                is_nursing_room:
+                  type: boolean
+                  description: 授乳室・スペース
+                is_kids_room:
+                  type: boolean
+                  description: キッズルーム・託児施設
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantDetail'
+
+    delete:
+      tags:
+        - restaurant
+      parameters:
+        - name: restaurant_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
 
 components:
   schemas:
