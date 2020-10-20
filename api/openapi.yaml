@@ -428,7 +428,7 @@ paths:
             schema:
               type: object
               properties:
-                uset_id:
+                user_id:
                   $ref: '#/components/schemas/Id'
                 restaurant_id:
                   $ref: '#/components/schemas/Id'
@@ -525,7 +525,7 @@ paths:
             schema:
               type: object
               properties:
-                uset_id:
+                user_id:
                   $ref: '#/components/schemas/Id'
                 restaurant_id:
                   $ref: '#/components/schemas/Id'
@@ -593,7 +593,7 @@ paths:
             schema:
               type: object
               properties:
-                uset_id:
+                user_id:
                   $ref: '#/components/schemas/Id'
                 restaurant_id:
                   $ref: '#/components/schemas/Id'
