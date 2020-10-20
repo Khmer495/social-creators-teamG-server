@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: SocialCreatorsTeamG
+  title: social-creators-teamG
   version: 0.0.0
 servers:
   - url: https://72daaa11-a960-440a-bb1c-41e6070cc90b.mock.pstmn.io
@@ -8,9 +8,11 @@ servers:
   - url: localhost:8080
     description: ローカル環境
 tags:
-  - name: session
   - name: user
   - name: restaurant
+  - name: comment
+  - name: good
+  - name: favorite
 
 paths:
   /users:
@@ -25,7 +27,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserAbout'
+                  $ref: '#/components/schemas/User'
 
     post:
       tags:
@@ -39,13 +41,16 @@ paths:
               properties:
                 family_name:
                   type: string
+                  maxLength: 255
                   example: 大阪
                 first_name:
                   type: string
+                  maxLength: 255
                   example: 太郎
                 email:
                   type: string
                   format: email
+                  maxLength: 255
                   example: user@example.com
               required:
                 - family_name
@@ -57,7 +62,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetail'
+                $ref: '#/components/schemas/User'
 
   /users/{user_id}:
     get:
@@ -75,7 +80,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetail'
+                $ref: '#/components/schemas/User'
+        404:
+          $ref: '#/components/responses/404'
 
     put:
       tags:
@@ -96,12 +103,15 @@ paths:
                 family_name:
                   type: string
                   example: 大阪
+                  maxLength: 255
                 first_name:
                   type: string
                   example: 太郎
+                  maxLength: 255
                 email:
                   type: string
                   format: email
+                  maxLength: 255
                   example: user@example.com
       responses:
         200:
@@ -109,7 +119,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetail'
+                $ref: '#/components/schemas/User'
+        404:
+          $ref: '#/components/responses/404'
 
     delete:
       tags:
@@ -123,6 +135,8 @@ paths:
       responses:
         204:
           $ref: '#/components/responses/204'
+        404:
+          $ref: '#/components/responses/404'
 
   /restaurants:
     get:
@@ -136,7 +150,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RestaurantAbout'
+                  $ref: '#/components/schemas/Restaurant'
 
     post:
       tags:
@@ -150,9 +164,11 @@ paths:
               properties:
                 name:
                   type: string
+                  maxLength: 255
                   example: スターバックスコーヒー ＬＡＱＵＥ四条烏丸店
                 address:
                   type: string
+                  maxLength: 255
                   example: 京都府京都市下京区函谷鉾町四条通室町東入１０１ アーバンネット四条烏丸ビル
                 lat:
                   type: number
@@ -238,7 +254,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestaurantDetail'
+                $ref: '#/components/schemas/Restaurant'
 
   /restaurants/{restaurant_id}:
     get:
@@ -256,7 +272,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestaurantDetail'
+                $ref: '#/components/schemas/Restaurant'
+        404:
+          $ref: '#/components/responses/404'
 
     put:
       tags:
@@ -276,9 +294,11 @@ paths:
               properties:
                 name:
                   type: string
+                  maxLength: 255
                   example: スターバックスコーヒー ＬＡＱＵＥ四条烏丸店
                 address:
                   type: string
+                  maxLength: 255
                   example: 京都府京都市下京区函谷鉾町四条通室町東入１０１ アーバンネット四条烏丸ビル
                 lat:
                   type: number
@@ -358,7 +378,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestaurantDetail'
+                $ref: '#/components/schemas/Restaurant'
+        404:
+          $ref: '#/components/responses/404'
 
     delete:
       tags:
@@ -372,6 +394,239 @@ paths:
       responses:
         204:
           $ref: '#/components/responses/204'
+
+  /comments:
+    get:
+      tags:
+        - comment
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+        - name: restaurant_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+
+    post:
+      tags:
+        - comment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uset_id:
+                  $ref: '#/components/schemas/Id'
+                restaurant_id:
+                  $ref: '#/components/schemas/Id'
+                text:
+                  type: string
+                  maxLength: 255
+              required:
+                - user_id
+                - restaurant_id
+                - text
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+
+  /comments/{comment_id}:
+    put:
+      tags:
+        - comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  maxLength: 255
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        404:
+          $ref: '#/components/responses/404'
+
+    delete:
+      tags:
+        - comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        404:
+          $ref: '#/components/responses/404'
+
+  /goods:
+    get:
+      tags:
+        - good
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+        - name: restaurant_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Good'
+
+    post:
+      tags:
+        - good
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uset_id:
+                  $ref: '#/components/schemas/Id'
+                restaurant_id:
+                  $ref: '#/components/schemas/Id'
+                text:
+                  type: string
+                  maxLength: 255
+              required:
+                - user_id
+                - restaurant_id
+                - text
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Good'
+
+  /goods/{good_id}:
+    delete:
+      tags:
+        - good
+      parameters:
+        - name: good_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        404:
+          $ref: '#/components/responses/404'
+
+  /favorites:
+    get:
+      tags:
+        - favorite
+      parameters:
+        - name: user_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+        - name: restaurant_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Favorite'
+
+    post:
+      tags:
+        - favorite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uset_id:
+                  $ref: '#/components/schemas/Id'
+                restaurant_id:
+                  $ref: '#/components/schemas/Id'
+                text:
+                  type: string
+                  maxLength: 255
+              required:
+                - user_id
+                - restaurant_id
+                - text
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favorite'
+
+  /favorites/{favorite_id}:
+    delete:
+      tags:
+        - favorite
+      parameters:
+        - name: favorite_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+        404:
+          $ref: '#/components/responses/404'
 
 components:
   schemas:
@@ -421,11 +676,15 @@ components:
           type: integer
           example: 5
 
-    CommentForUser:
+    Comment:
       type: object
       properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        user:
+          $ref: '#/components/schemas/User'
         restaurant:
-          $ref: '#/components/schemas/RestaurantAbout'
+          $ref: '#/components/schemas/Restaurant'
         created_at:
           $ref: '#/components/schemas/Datetime'
         updated_at:
@@ -434,64 +693,35 @@ components:
           type: string
           example: ここにコメントが入ります
 
-    CommentForRestaurant:
+    Good:
       type: object
       properties:
-        user:
-          $ref: '#/components/schemas/UserAbout'
-        created_at:
-          $ref: '#/components/schemas/Datetime'
-        updated_at:
-          $ref: '#/components/schemas/Datetime'
-        text:
-          type: string
-          example: ここにコメントが入ります
-
-    GoodForUser:
-      type: object
-      properties:
-        restaurant:
-          $ref: '#/components/schemas/RestaurantAbout'
-        restaurant_id:
+        id:
           $ref: '#/components/schemas/Id'
-        created_at:
-          $ref: '#/components/schemas/Datetime'
-        updated_at:
-          $ref: '#/components/schemas/Datetime'
-
-    GoodForRestaurant:
-      type: object
-      properties:
         user:
-          $ref: '#/components/schemas/UserAbout'
-        restaurant_id:
-          $ref: '#/components/schemas/Id'
-        created_at:
-          $ref: '#/components/schemas/Datetime'
-        updated_at:
-          $ref: '#/components/schemas/Datetime'
-
-    FavoriteForUser:
-      type: object
-      properties:
+          $ref: '#/components/schemas/User'
         restaurant:
-          $ref: '#/components/schemas/RestaurantAbout'
+          $ref: '#/components/schemas/Restaurant'
         created_at:
           $ref: '#/components/schemas/Datetime'
         updated_at:
           $ref: '#/components/schemas/Datetime'
 
-    FavoriteForRestaurant:
+    Favorite:
       type: object
       properties:
+        id:
+          $ref: '#/components/schemas/Id'
         user:
-          $ref: '#/components/schemas/UserAbout'
+          $ref: '#/components/schemas/User'
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
         created_at:
           $ref: '#/components/schemas/Datetime'
         updated_at:
           $ref: '#/components/schemas/Datetime'
 
-    UserAbout:
+    User:
       type: object
       properties:
         id:
@@ -510,46 +740,8 @@ components:
           type: string
           format: email
           example: user@example.com
-        comment_count:
-          $ref: '#/components/schemas/Count'
-        good_count:
-          $ref: '#/components/schemas/Count'
-        favorite_count:
-          $ref: '#/components/schemas/Count'
 
-    UserDetail:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/Id'
-        created_at:
-          $ref: '#/components/schemas/Datetime'
-        updated_at:
-          $ref: '#/components/schemas/Datetime'
-        family_name:
-          type: string
-          example: 大阪
-        first_name:
-          type: string
-          example: 太郎
-        email:
-          type: string
-          format: email
-          example: user@example.com
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommentForUser'
-        goods:
-          type: array
-          items:
-            $ref: '#/components/schemas/GoodForUser'
-        favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/FavoriteForUser'
-
-    RestaurantAbout:
+    Restaurant:
       type: object
       properties:
         id:
@@ -636,108 +828,6 @@ components:
         is_kids_room:
           type: boolean
           description: キッズルーム・託児施設
-        comment_count:
-          $ref: '#/components/schemas/Count'
-        good_count:
-          $ref: '#/components/schemas/Count'
-        favorite_count:
-          $ref: '#/components/schemas/Count'
-
-    RestaurantDetail:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/Id'
-        name:
-          type: string
-          example: スターバックスコーヒー ＬＡＱＵＥ四条烏丸店
-        address:
-          type: string
-          example: 京都府京都市下京区函谷鉾町四条通室町東入１０１ アーバンネット四条烏丸ビル
-        lat:
-          type: number
-          format: float
-          description: 緯度
-          example: 35.003873
-        lng:
-          type: number
-          format: float
-          description: 経度
-          example: 135.759245
-        prefecture:
-          $ref: '#/components/schemas/Prefecture'
-        city:
-          $ref: '#/components/schemas/City'
-        open_time:
-          $ref: '#/components/schemas/Time'
-        close_time:
-          $ref: '#/components/schemas/Time'
-        from_kIds_welcome_time:
-          $ref: '#/components/schemas/Time'
-        to_kIds_welcome_time:
-          $ref: '#/components/schemas/Time'
-        menu:
-          type: string
-          example: ここにメニューが入ります
-        is_ok_baby_car:
-          type: boolean
-          description: ベビーカー入店 OK
-          example: True
-        is_zashiki:
-          type: boolean
-          description: 座敷
-          example: False
-        is_private_room:
-          type: boolean
-          description: 個室
-        is_parking_area:
-          type: boolean
-          description: 駐車場
-        is_luggage_storage:
-          type: boolean
-          description: 荷物置き(席の近くに)
-        is_nap_space:
-          type: boolean
-          description: お昼寝スペース
-        is_baby_bed:
-          type: boolean
-          description: ベビーベッド・おむつ交換台
-        is_kids_menu:
-          type: boolean
-          description: お子様メニュー
-        is_kids_chair:
-          type: boolean
-          description: お子様用椅子
-        is_kids_dish:
-          type: boolean
-          description: お子様用食器
-        is_kids_toilet:
-          type: boolean
-          description: お子様用トイレ
-        is_kids_toy:
-          type: boolean
-          description: お子様用の本・おもちゃ
-        is_ok_baby_food:
-          type: boolean
-          description: 離乳食の持ち込み OK
-        is_nursing_room:
-          type: boolean
-          description: 授乳室・スペース
-        is_kids_room:
-          type: boolean
-          description: キッズルーム・託児施設
-        comments:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommentForRestaurant'
-        goods:
-          type: array
-          items:
-            $ref: '#/components/schemas/GoodForRestaurant'
-        favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/FavoriteForRestaurant'
 
   responses:
     200:
