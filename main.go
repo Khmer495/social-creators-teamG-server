@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"github.com/Khmer495/social-creators-teamG-server/infrastracture"
+)
 
 func main() {
-	fmt.Printf("Hello world\n")
+	e := infrastracture.ApiServer()
+	e.Logger.Fatal(e.Start(":8080"))
 }
