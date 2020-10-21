@@ -3,20 +3,9 @@ package infrastracture
 import (
 	"net/http"
 
-	"github.com/go-playground/validator"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
-
-// CustomValidator is
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-// Validate is
-func (cv *CustomValidator) Validate(i interface{}) error {
-	return cv.validator.Struct(i)
-}
 
 // ApiServer is
 func ApiServer() *echo.Echo {
@@ -24,8 +13,6 @@ func ApiServer() *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
-
-	e.Validator = &CustomValidator{validator: validator.New()}
 
 	e.GET("/", hello)
 

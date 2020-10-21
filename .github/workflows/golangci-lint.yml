@@ -4,7 +4,6 @@ on:
     tags:
       - v*
     branches:
-      - master
       - main
   pull_request:
 jobs:
@@ -20,7 +19,7 @@ jobs:
           version: v1.29
 
           # Optional: working directory, useful for monorepos
-          # working-directory: somedir
+          working-directory: ./go
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
