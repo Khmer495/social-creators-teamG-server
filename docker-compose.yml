@@ -15,8 +15,10 @@ services:
       - ./database/data:/var/lib/mysql
       - ./database/my.cnf:/etc/mysql/conf.d/my.cnf
 
-  app:
-    build: .
+  api:
+    build:
+      context: ./go
+      target: build
     restart: always
     tty: true
     ports:
@@ -26,5 +28,9 @@ services:
       DB_PASSWORD: password
       DB_HOST: db
       DB_PORT: 3306
+    volumes:
+      - ./go:/go/src
+    # working_dir: /go/src
+    # command: realize start
     depends_on:
       - db
