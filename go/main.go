@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	e := infrastracture.ApiServer()
-	e.Logger.Fatal(e.Start(":8080"))
+	infrastracture.InitApiServer()
+	infrastracture.InitDBServer()
 }
