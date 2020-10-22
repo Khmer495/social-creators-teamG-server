@@ -7,9 +7,9 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/so-heee/golang-clean-architecture-example/api/interfaces/database"
 
 	"github.com/Khmer495/social-creators-teamG-server/go/entity/model"
+	"github.com/Khmer495/social-creators-teamG-server/go/interface/database"
 )
 
 var count = 0
@@ -99,4 +99,8 @@ func (handler *SqlHandler) Delete(value interface{}) *gorm.DB {
 
 func (handler *SqlHandler) Where(query interface{}, args ...interface{}) *gorm.DB {
 	return handler.Conn.Where(query, args...)
+}
+
+func (handler *SqlHandler) Query() *gorm.DB {
+	return handler.Conn
 }

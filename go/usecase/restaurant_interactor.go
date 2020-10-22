@@ -11,8 +11,8 @@ func (interactor *RestaurantInteractor) RestaurantById(id int) (restaurant model
 	return
 }
 
-func (interactor *RestaurantInteractor) Restaurants() (restaurants model.Restaurants, err error) {
-	restaurants, err = interactor.RestaurantRepository.FindAll()
+func (interactor *RestaurantInteractor) Restaurants(r model.RestaurantQuery) (restaurants model.Restaurants, err error) {
+	restaurants, err = interactor.RestaurantRepository.FindAll(r)
 	return
 }
 
