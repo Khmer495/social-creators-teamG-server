@@ -142,6 +142,91 @@ paths:
     get:
       tags:
         - restaurant
+      parameters:
+        - name: prefecture_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+        - name: city_id
+          in: query
+          schema:
+            $ref: '#/components/schemas/Id'
+        - name: from_open_time
+          in: query
+          schema:
+            $ref: '#/components/schemas/Time'
+        - name: to_open_time
+          in: query
+          schema:
+            $ref: '#/components/schemas/Time'
+        - name: from_kids_welcom_time
+          in: query
+          schema:
+            $ref: '#/components/schemas/Time'
+        - name: to_kids_welcom_time
+          in: query
+          schema:
+            $ref: '#/components/schemas/Time'
+        - name: is_ok_baby_car
+          in: query
+          schema:
+            type: boolean
+        - name: is_zashiki
+          in: query
+          schema:
+            type: boolean
+        - name: is_private_room
+          in: query
+          schema:
+            type: boolean
+        - name: is_parking_area
+          in: query
+          schema:
+            type: boolean
+        - name: is_luggage_storage
+          in: query
+          schema:
+            type: boolean
+        - name: is_nap_space
+          in: query
+          schema:
+            type: boolean
+        - name: is_baby_bed
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_menu
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_chair
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_dish
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_toilet
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_toy
+          in: query
+          schema:
+            type: boolean
+        - name: is_ok_baby_food
+          in: query
+          schema:
+            type: boolean
+        - name: is_nursing_room
+          in: query
+          schema:
+            type: boolean
+        - name: is_kids_room
+          in: query
+          schema:
+            type: boolean
       responses:
         200:
           description: OK
