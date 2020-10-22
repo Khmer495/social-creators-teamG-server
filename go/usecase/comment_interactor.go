@@ -11,8 +11,8 @@ func (interactor *CommentInteractor) CommentById(id int) (comment model.Comment,
 	return
 }
 
-func (interactor *CommentInteractor) Comments() (comments model.Comments, err error) {
-	comments, err = interactor.CommentRepository.FindAll()
+func (interactor *CommentInteractor) Comments(m model.CommentQuery) (comments model.Comments, err error) {
+	comments, err = interactor.CommentRepository.FindAll(m)
 	return
 }
 

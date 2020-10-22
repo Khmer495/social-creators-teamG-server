@@ -14,3 +14,8 @@ type Favorite struct {
 }
 
 type Favorites []Favorite
+
+type FavoriteQuery struct {
+	UserID       int `json:"user_id"`
+	RestaurantID int `json:"restaurant_id"`
+}

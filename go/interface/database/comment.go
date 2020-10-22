@@ -15,8 +15,15 @@ func (repo *CommentRepository) FindById(id int) (comment model.Comment, err erro
 	return
 }
 
-func (repo *CommentRepository) FindAll() (comments model.Comments, err error) {
-	if err = repo.Find(&comments).Error; err != nil {
+func (repo *CommentRepository) FindAll(m model.CommentQuery) (comments model.Comments, err error) {
+	query := repo.Query()
+	if m.UserID > 0 {
+		query = query.Where("user_id = ?", m.UserID)
+	}
+	if m.RestaurantID > 0 {
+		query = query.Where("restaurant_id = ?", m.RestaurantID)
+	}
+	if err = query.Find(&comments).Error; err != nil {
 		return
 	}
 	return

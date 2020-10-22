@@ -11,8 +11,8 @@ func (interactor *GoodInteractor) GoodById(id int) (good model.Good, err error) 
 	return
 }
 
-func (interactor *GoodInteractor) Goods() (goods model.Goods, err error) {
-	goods, err = interactor.GoodRepository.FindAll()
+func (interactor *GoodInteractor) Goods(g model.GoodQuery) (goods model.Goods, err error) {
+	goods, err = interactor.GoodRepository.FindAll(g)
 	return
 }
 

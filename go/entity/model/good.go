@@ -14,3 +14,8 @@ type Good struct {
 }
 
 type Goods []Good
+
+type GoodQuery struct {
+	UserID       int `json:"user_id"`
+	RestaurantID int `json:"restaurant_id"`
+}

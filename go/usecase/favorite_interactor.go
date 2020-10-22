@@ -11,8 +11,8 @@ func (interactor *FavoriteInteractor) FavoriteById(id int) (favorite model.Favor
 	return
 }
 
-func (interactor *FavoriteInteractor) Favorites() (favorites model.Favorites, err error) {
-	favorites, err = interactor.FavoriteRepository.FindAll()
+func (interactor *FavoriteInteractor) Favorites(f model.FavoriteQuery) (favorites model.Favorites, err error) {
+	favorites, err = interactor.FavoriteRepository.FindAll(f)
 	return
 }
 

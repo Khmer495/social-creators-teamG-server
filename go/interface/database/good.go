@@ -15,8 +15,15 @@ func (repo *GoodRepository) FindById(id int) (good model.Good, err error) {
 	return
 }
 
-func (repo *GoodRepository) FindAll() (goods model.Goods, err error) {
-	if err = repo.Find(&goods).Error; err != nil {
+func (repo *GoodRepository) FindAll(g model.GoodQuery) (goods model.Goods, err error) {
+	query := repo.Query()
+	if g.UserID > 0 {
+		query = query.Where("user_id = ?", g.UserID)
+	}
+	if g.RestaurantID > 0 {
+		query = query.Where("restaurant_id = ?", g.RestaurantID)
+	}
+	if err = query.Find(&goods).Error; err != nil {
 		return
 	}
 	return

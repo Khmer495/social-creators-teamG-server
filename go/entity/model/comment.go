@@ -15,3 +15,8 @@ type Comment struct {
 }
 
 type Comments []Comment
+
+type CommentQuery struct {
+	UserID       int `json:"user_id"`
+	RestaurantID int `json:"restaurant_id"`
+}

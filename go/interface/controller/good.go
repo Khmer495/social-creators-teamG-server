@@ -35,7 +35,13 @@ func (controller *GoodController) Show(c echo.Context) (err error) {
 }
 
 func (controller *GoodController) Index(c echo.Context) (err error) {
-	goods, err := controller.Interactor.Goods()
+	user_id, _ := strconv.Atoi(c.QueryParam("user_id"))
+	restaurant_id, _ := strconv.Atoi(c.QueryParam("restaurant_id"))
+	g := model.GoodQuery{
+		UserID:       user_id,
+		RestaurantID: restaurant_id,
+	}
+	goods, err := controller.Interactor.Goods(g)
 	if err != nil {
 		_ = c.JSON(500, NewError(err))
 		return

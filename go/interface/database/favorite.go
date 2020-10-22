@@ -15,8 +15,15 @@ func (repo *FavoriteRepository) FindById(id int) (favorite model.Favorite, err e
 	return
 }
 
-func (repo *FavoriteRepository) FindAll() (favorites model.Favorites, err error) {
-	if err = repo.Find(&favorites).Error; err != nil {
+func (repo *FavoriteRepository) FindAll(f model.FavoriteQuery) (favorites model.Favorites, err error) {
+	query := repo.Query()
+	if f.UserID > 0 {
+		query = query.Where("user_id = ?", f.UserID)
+	}
+	if f.RestaurantID > 0 {
+		query = query.Where("restaurant_id = ?", f.RestaurantID)
+	}
+	if err = query.Find(&favorites).Error; err != nil {
 		return
 	}
 	return

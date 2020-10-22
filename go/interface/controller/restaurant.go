@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"log"
 	"strconv"
 
 	"github.com/Khmer495/social-creators-teamG-server/go/entity/model"
@@ -36,7 +35,6 @@ func (controller *RestaurantController) Show(c echo.Context) (err error) {
 }
 
 func (controller *RestaurantController) Index(c echo.Context) (err error) {
-	log.Println(c)
 	prefecture_id, _ := strconv.Atoi(c.QueryParam("prefecture_id"))
 	city_id, _ := strconv.Atoi(c.QueryParam("city_id"))
 	from_open_time := c.QueryParam("from_open_time")
@@ -82,7 +80,6 @@ func (controller *RestaurantController) Index(c echo.Context) (err error) {
 		IsNursingRoom:       is_nursing_room,
 		IsKidsRoom:          is_kids_room,
 	}
-	log.Println(&r)
 	restaurants, err := controller.Interactor.Restaurants(r)
 	if err != nil {
 		_ = c.JSON(500, NewError(err))
