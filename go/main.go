@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	infrastracture.InitApiServer()
 	infrastracture.InitDBServer()
+	infrastracture.InitApiServer()
 }

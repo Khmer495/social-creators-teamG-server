@@ -40,8 +40,18 @@ func DBConnect() *gorm.DB {
 	return conn
 }
 
-func DBMigrate(DB *gorm.DB) {
-	DB.AutoMigrate(&model.User{})
+func DBMigrate(conn *gorm.DB) {
+	log.Println("Start auto migration")
+	conn.AutoMigrate(
+		&model.Prefecture{},
+		&model.City{},
+		&model.User{},
+		&model.Restaurant{},
+		&model.Comment{},
+		&model.Good{},
+		&model.Favorite{},
+	)
+	log.Println("Finish auto migration")
 }
 
 func InitDBServer() {
