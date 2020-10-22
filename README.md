@@ -1,9 +1,9 @@
 # social-creators-teamG-server
+データベース・APIサーバー
 
 ## 使用方法
-Makefileとdocker-composeを使用  
-```
 Makfile
+```
 up:
 	docker-compose up
 down:
@@ -12,10 +12,18 @@ build:
 	docker-compose build
 ```
 
-## 使用言語・ライブラリ
-- go/1.15.2
+## 使用技術
+### 言語
+- go/v1.15.2
   - [echo/v4](https://github.com/labstack/echo)
   - [gorm](https://github.com/go-gorm/gorm)
+### データベース
+- MySQL/v8.0
+### API
+- ドキュメント: OpenAPI
+- モックサーバー: Postman
+### 他
+- Docker Compose
 
 ## ディレクトリ構成
 ./go配下はクリーンアーキテクチャを採用  
