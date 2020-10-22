@@ -35,12 +35,8 @@ func (controller *CommentController) Show(c echo.Context) (err error) {
 }
 
 func (controller *CommentController) Index(c echo.Context) (err error) {
-	user_id, _ := strconv.Atoi(c.QueryParam("user_id"))
-	restaurant_id, _ := strconv.Atoi(c.QueryParam("restaurant_id"))
-	m := model.CommentQuery{
-		UserID:       user_id,
-		RestaurantID: restaurant_id,
-	}
+	m := model.CommentQuery{}
+	_ = c.Bind(&m)
 	comments, err := controller.Interactor.Comments(m)
 	if err != nil {
 		_ = c.JSON(500, NewError(err))

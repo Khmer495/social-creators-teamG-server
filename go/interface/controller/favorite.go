@@ -35,12 +35,8 @@ func (controller *FavoriteController) Show(c echo.Context) (err error) {
 }
 
 func (controller *FavoriteController) Index(c echo.Context) (err error) {
-	user_id, _ := strconv.Atoi(c.QueryParam("user_id"))
-	restaurant_id, _ := strconv.Atoi(c.QueryParam("restaurant_id"))
-	f := model.FavoriteQuery{
-		UserID:       user_id,
-		RestaurantID: restaurant_id,
-	}
+	f := model.FavoriteQuery{}
+	_ = c.Bind(&f)
 	favorites, err := controller.Interactor.Favorites(f)
 	if err != nil {
 		_ = c.JSON(500, NewError(err))
