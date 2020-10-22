@@ -13,8 +13,8 @@ build:
 ```
 
 ## 使用言語・ライブラリ
-- Go
-  - [echo](https://github.com/labstack/echo)
+- go/1.15.2
+  - [echo/v4](https://github.com/labstack/echo)
   - [gorm](https://github.com/go-gorm/gorm)
 
 ## ディレクトリ構成
