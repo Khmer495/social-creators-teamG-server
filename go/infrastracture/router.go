@@ -25,6 +25,7 @@ func InitApiServer() {
 	favoriteController := controller.NewFavoriteController(NewSqlHandler())
 
 	e.GET("/", hello)
+	e.GET("/admin/reset", ResetDB)
 
 	e.GET("/prefectures", func(c echo.Context) error { return prefectureController.Index(c) })
 	e.GET("/prefectures/:id", func(c echo.Context) error { return prefectureController.Show(c) })

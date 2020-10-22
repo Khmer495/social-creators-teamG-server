@@ -23,17 +23,26 @@ func (repo *RestaurantRepository) FindAll(r model.RestaurantQuery) (restaurants 
 	if r.CityID > 0 {
 		query = query.Where("city_id = ?", r.CityID)
 	}
-	if r.FromOpenTime != "" {
-		query = query.Where("open_time < ?", r.FromOpenTime)
+	// if r.FromOpenTime != "" {
+	// 	query = query.Where("open_time < ?", r.FromOpenTime)
+	// }
+	// if r.ToCloseTime != "" {
+	// 	query = query.Where("to_time > ?", &r.ToCloseTime)
+	// }
+	// if r.FromKidsWelcomeTime != "" {
+	// 	query = query.Where("from_kids_welcome_time < ?", &r.FromKidsWelcomeTime)
+	// }
+	// if r.ToKidsWelcomeTime != "" {
+	// 	query = query.Where("to_kids_welcome_time > ?", &r.ToKidsWelcomeTime)
+	// }
+	if r.IsOkBaby {
+		query = query.Where("is_ok_baby = ?", r.IsOkBaby)
 	}
-	if r.ToCloseTime != "" {
-		query = query.Where("to_time > ?", &r.ToCloseTime)
+	if r.IsOkInfant {
+		query = query.Where("is_ok_infant = ?", r.IsOkInfant)
 	}
-	if r.FromKidsWelcomeTime != "" {
-		query = query.Where("from_kids_welcome_time < ?", &r.FromKidsWelcomeTime)
-	}
-	if r.ToKidsWelcomeTime != "" {
-		query = query.Where("to_kids_welcome_time > ?", &r.ToKidsWelcomeTime)
+	if r.IsNoSmoking {
+		query = query.Where("is_no_smoking = ?", r.IsNoSmoking)
 	}
 	if r.IsOkBabyCar {
 		query = query.Where("is_ok_baby_car = ?", r.IsOkBabyCar)
@@ -79,6 +88,9 @@ func (repo *RestaurantRepository) FindAll(r model.RestaurantQuery) (restaurants 
 	}
 	if r.IsKidsRoom {
 		query = query.Where("is_kids_room = ?", &r.IsKidsRoom)
+	}
+	if r.IsAllergenLabel {
+		query = query.Where("is_allergen_label = ?", &r.IsAllergenLabel)
 	}
 	if err = query.Find(&restaurants).Error; err != nil {
 		return

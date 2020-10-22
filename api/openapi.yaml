@@ -151,22 +151,34 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/Id'
-        - name: from_open_time
+        # - name: from_open_time
+        #   in: query
+        #   schema:
+        #     $ref: '#/components/schemas/Time'
+        # - name: to_open_time
+        #   in: query
+        #   schema:
+        #     $ref: '#/components/schemas/Time'
+        # - name: from_kids_welcom_time
+        #   in: query
+        #   schema:
+        #     $ref: '#/components/schemas/Time'
+        # - name: to_kids_welcom_time
+        #   in: query
+        #   schema:
+        #     $ref: '#/components/schemas/Time'
+        - name: is_ok_baby
           in: query
           schema:
-            $ref: '#/components/schemas/Time'
-        - name: to_open_time
+            type: boolean
+        - name: is_ok_infant
           in: query
           schema:
-            $ref: '#/components/schemas/Time'
-        - name: from_kids_welcom_time
+            type: boolean
+        - name: is_no_smoking
           in: query
           schema:
-            $ref: '#/components/schemas/Time'
-        - name: to_kids_welcom_time
-          in: query
-          schema:
-            $ref: '#/components/schemas/Time'
+            type: boolean
         - name: is_ok_baby_car
           in: query
           schema:
@@ -224,6 +236,10 @@ paths:
           schema:
             type: boolean
         - name: is_kids_room
+          in: query
+          schema:
+            type: boolean
+        - name: is_allergen_label
           in: query
           schema:
             type: boolean
@@ -866,6 +882,18 @@ components:
         menu:
           type: string
           example: ここにメニューが入ります
+        is_ok_baby:
+          type: boolean
+          description: 乳児OK
+          example: True
+        is_ok_infant:
+          type: boolean
+          description: 幼児OK
+          example: True
+        is_no_smoking:
+          type: boolean
+          description: 禁煙・分煙
+          example: True
         is_ok_baby_car:
           type: boolean
           description: ベビーカー入店 OK
@@ -913,6 +941,9 @@ components:
         is_kids_room:
           type: boolean
           description: キッズルーム・託児施設
+        is_allergen_label:
+          type: boolean
+          description: アレルギー表示・対応食
 
   responses:
     200:
