@@ -8,6 +8,8 @@ servers:
   - url: localhost:8080
     description: ローカル環境
 tags:
+  - name: prefecture
+  - name: city
   - name: user
   - name: restaurant
   - name: comment
@@ -15,6 +17,34 @@ tags:
   - name: favorite
 
 paths:
+  /prefectures:
+    get:
+      tags:
+        - prefecture
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prefecture'
+
+  /cities:
+    get:
+      tags:
+        - city
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+
   /users:
     get:
       tags:
