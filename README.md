@@ -13,7 +13,7 @@ build:
 	docker-compose build
 ```
 ### APIサーバー
-- ドキュメント：`https://khmer495.github.io/social-creators-teamG-server/openapi_viewer/index.html`
+- ドキュメント：https://khmer495.github.io/social-creators-teamG-server/openapi_viewer/index.html
 - モックエンドポイント：`https://72daaa11-a960-440a-bb1c-41e6070cc90b.mock.pstmn.io`
 - ローカルエンドポイント：`localhost:8080`
 
