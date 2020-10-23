@@ -15,6 +15,7 @@ tags:
   - name: comment
   - name: good
   - name: favorite
+  - name: admin
 
 paths:
   /prefectures:
@@ -758,6 +759,15 @@ paths:
           $ref: '#/components/responses/204'
         404:
           $ref: '#/components/responses/404'
+
+  /admin/reset:
+    get:
+      summary: 'DBを初期化し、初期データを挿入'
+      tags:
+        - admin
+      responses:
+        204:
+          $ref: '#/components/responses/204'
 
 components:
   schemas:
