@@ -8,4 +8,4 @@ require (
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible // indirect
 )
 
-replace gopkg.in/urfave/cli.v2 => github.com/urfave/cli/v2 v2.2.0
+replace gopkg.in/urfave/cli.v2 => github.com/urfave/cli/v2 v2.2.0 // Need to use github.com/oxequa/realize, used in ./Dockerfile

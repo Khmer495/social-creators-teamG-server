@@ -9,21 +9,21 @@ type CityRepository struct {
 }
 
 func (repo *CityRepository) FindById(id int) (city model.City, err error) {
-	if err = repo.Find(&city, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Find(&city, id).Error; err != nil {
 		return
 	}
 	return
 }
 
 func (repo *CityRepository) FindAll() (citys model.Cities, err error) {
-	if err = repo.Find(&citys).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Find(&citys).Error; err != nil {
 		return
 	}
 	return
 }
 
 func (repo *CityRepository) Store(c model.City) (perfecture model.City, err error) {
-	if err = repo.Create(&c).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Create(&c).Error; err != nil {
 		return
 	}
 	perfecture = c
@@ -31,7 +31,7 @@ func (repo *CityRepository) Store(c model.City) (perfecture model.City, err erro
 }
 
 func (repo *CityRepository) Update(c model.City) (perfecture model.City, err error) {
-	if err = repo.Save(&c).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Save(&c).Error; err != nil {
 		return
 	}
 	perfecture = c

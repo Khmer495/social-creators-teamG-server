@@ -56,6 +56,10 @@ func (handler *SqlHandler) Where(query interface{}, args ...interface{}) *gorm.D
 	return handler.Conn.Where(query, args...)
 }
 
+func (handler *SqlHandler) Set(name string, value interface{}) *gorm.DB {
+	return handler.Conn.Set(name, value)
+}
+
 func (handler *SqlHandler) Query() *gorm.DB {
 	return handler.Conn
 }

@@ -9,14 +9,14 @@ type FavoriteRepository struct {
 }
 
 func (repo *FavoriteRepository) FindById(id int) (favorite model.Favorite, err error) {
-	if err = repo.Find(&favorite, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Find(&favorite, id).Error; err != nil {
 		return
 	}
 	return
 }
 
 func (repo *FavoriteRepository) FindAll(f model.FavoriteQuery) (favorites model.Favorites, err error) {
-	query := repo.Query()
+	query := repo.Set("gorm:auto_preload", true)
 	if f.UserID > 0 {
 		query = query.Where("user_id = ?", f.UserID)
 	}
@@ -30,7 +30,7 @@ func (repo *FavoriteRepository) FindAll(f model.FavoriteQuery) (favorites model.
 }
 
 func (repo *FavoriteRepository) Store(f model.Favorite) (perfecture model.Favorite, err error) {
-	if err = repo.Create(&f).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Create(&f).Error; err != nil {
 		return
 	}
 	perfecture = f
@@ -38,7 +38,7 @@ func (repo *FavoriteRepository) Store(f model.Favorite) (perfecture model.Favori
 }
 
 func (repo *FavoriteRepository) Update(f model.Favorite) (perfecture model.Favorite, err error) {
-	if err = repo.Save(&f).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Save(&f).Error; err != nil {
 		return
 	}
 	perfecture = f

@@ -8,7 +8,7 @@ type Comment struct {
 	UpdatedAt    time.Time  `json:"updated_at"`
 	DeletedAt    *time.Time `sql:"index" json:"deleted_at"`
 	UserID       int        `json:"user_id" form:"user_id"`
-	User         User       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:Cascade;" json:"user"`
+	User         User       `gorm:"auto_preload,constraint:OnUpdate:CASCADE,OnDelete:Cascade;" json:"user"`
 	RestaurantID int        `json:"restaurant_id" form:"restaurant_id"`
 	Restaurant   Restaurant `gorm:"constraint:OnUpdate:CASCADE,OnDelete:Cascade;" json:"restaurant"`
 	Text         string     `json:"text"`

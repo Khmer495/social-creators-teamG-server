@@ -9,14 +9,14 @@ type CommentRepository struct {
 }
 
 func (repo *CommentRepository) FindById(id int) (comment model.Comment, err error) {
-	if err = repo.Find(&comment, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Find(&comment, id).Error; err != nil {
 		return
 	}
 	return
 }
 
 func (repo *CommentRepository) FindAll(m model.CommentQuery) (comments model.Comments, err error) {
-	query := repo.Query()
+	query := repo.Set("gorm:auto_preload", true)
 	if m.UserID > 0 {
 		query = query.Where("user_id = ?", m.UserID)
 	}
@@ -30,7 +30,7 @@ func (repo *CommentRepository) FindAll(m model.CommentQuery) (comments model.Com
 }
 
 func (repo *CommentRepository) Store(c model.Comment) (perfecture model.Comment, err error) {
-	if err = repo.Create(&c).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Create(&c).Error; err != nil {
 		return
 	}
 	perfecture = c
@@ -38,7 +38,7 @@ func (repo *CommentRepository) Store(c model.Comment) (perfecture model.Comment,
 }
 
 func (repo *CommentRepository) Update(c model.Comment) (perfecture model.Comment, err error) {
-	if err = repo.Save(&c).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Save(&c).Error; err != nil {
 		return
 	}
 	perfecture = c

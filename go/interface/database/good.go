@@ -9,14 +9,14 @@ type GoodRepository struct {
 }
 
 func (repo *GoodRepository) FindById(id int) (good model.Good, err error) {
-	if err = repo.Find(&good, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Find(&good, id).Error; err != nil {
 		return
 	}
 	return
 }
 
 func (repo *GoodRepository) FindAll(g model.GoodQuery) (goods model.Goods, err error) {
-	query := repo.Query()
+	query := repo.Set("gorm:auto_preload", true)
 	if g.UserID > 0 {
 		query = query.Where("user_id = ?", g.UserID)
 	}
@@ -30,7 +30,7 @@ func (repo *GoodRepository) FindAll(g model.GoodQuery) (goods model.Goods, err e
 }
 
 func (repo *GoodRepository) Store(g model.Good) (perfecture model.Good, err error) {
-	if err = repo.Create(&g).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Create(&g).Error; err != nil {
 		return
 	}
 	perfecture = g
@@ -38,7 +38,7 @@ func (repo *GoodRepository) Store(g model.Good) (perfecture model.Good, err erro
 }
 
 func (repo *GoodRepository) Update(g model.Good) (perfecture model.Good, err error) {
-	if err = repo.Save(&g).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Save(&g).Error; err != nil {
 		return
 	}
 	perfecture = g
