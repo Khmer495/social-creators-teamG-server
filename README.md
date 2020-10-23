@@ -19,16 +19,17 @@ build:
 
 ## 使用技術
 ### 言語
-- go/v1.15.2
+- go v1.15.2
   - [echo/v4](https://github.com/labstack/echo)
   - [gorm](https://github.com/go-gorm/gorm)
+  - [realize](https://github.com/oxequa/realize)
 ### データベース
-- MySQL/v8.0
+- MySQL v8.0
 ### API
-- ドキュメント: OpenAPI
+- ドキュメント: OpenAPI v3.0.0
 - モックサーバー: Postman
-### 他
-- Docker Compose
+### 実行環境
+- Docker Compose v3
 
 ## ディレクトリ構成
 ./go配下はクリーンアーキテクチャを採用  
@@ -60,3 +61,6 @@ build:
 参考：
 - [Clean ArchitectureでAPI Serverを構築してみる](https://qiita.com/hirotakan/items/698c1f5773a3cca6193e)
 - [Golang - EchoとGORMでClean Architecture APIを構築する](https://qiita.com/so-heee/items/0cca93008eae635c642a)
+
+## データベース構成
+https://github.com/Khmer495/social-creators-teamG-server/blob/main/database/README.md
