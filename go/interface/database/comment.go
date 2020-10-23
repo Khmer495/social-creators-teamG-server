@@ -9,7 +9,7 @@ type CommentRepository struct {
 }
 
 func (repo *CommentRepository) FindById(id int) (comment model.Comment, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Find(&comment, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).First(&comment, id).Error; err != nil {
 		return
 	}
 	return
@@ -38,7 +38,7 @@ func (repo *CommentRepository) Store(c model.Comment) (perfecture model.Comment,
 }
 
 func (repo *CommentRepository) Update(c model.Comment) (perfecture model.Comment, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Save(&c).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Model(&model.Comment{}).Update(&c).First(&c).Error; err != nil {
 		return
 	}
 	perfecture = c

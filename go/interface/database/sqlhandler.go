@@ -9,6 +9,8 @@ type SqlHandler interface {
 	Raw(string, ...interface{}) *gorm.DB
 	Create(interface{}) *gorm.DB
 	Save(interface{}) *gorm.DB
+	Model(interface{}) *gorm.DB
+	Update(...interface{}) *gorm.DB
 	Delete(interface{}) *gorm.DB
 	Where(interface{}, ...interface{}) *gorm.DB
 	Set(string, interface{}) *gorm.DB

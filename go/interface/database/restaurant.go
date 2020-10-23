@@ -9,7 +9,7 @@ type RestaurantRepository struct {
 }
 
 func (repo *RestaurantRepository) FindById(id int) (restaurant model.Restaurant, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Find(&restaurant, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).First(&restaurant, id).Error; err != nil {
 		return
 	}
 	return
@@ -107,7 +107,7 @@ func (repo *RestaurantRepository) Store(r model.Restaurant) (restaurant model.Re
 }
 
 func (repo *RestaurantRepository) Update(r model.Restaurant) (restaurant model.Restaurant, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Save(&r).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Model(&model.Restaurant{}).Update(&r).First(&r).Error; err != nil {
 		return
 	}
 	restaurant = r

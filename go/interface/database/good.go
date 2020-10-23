@@ -9,7 +9,7 @@ type GoodRepository struct {
 }
 
 func (repo *GoodRepository) FindById(id int) (good model.Good, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Find(&good, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).First(&good, id).Error; err != nil {
 		return
 	}
 	return
@@ -38,7 +38,7 @@ func (repo *GoodRepository) Store(g model.Good) (perfecture model.Good, err erro
 }
 
 func (repo *GoodRepository) Update(g model.Good) (perfecture model.Good, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Save(&g).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Model(&model.Good{}).Update(&g).First(&g).Error; err != nil {
 		return
 	}
 	perfecture = g

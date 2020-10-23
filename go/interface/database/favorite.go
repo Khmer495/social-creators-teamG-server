@@ -9,7 +9,7 @@ type FavoriteRepository struct {
 }
 
 func (repo *FavoriteRepository) FindById(id int) (favorite model.Favorite, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Find(&favorite, id).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).First(&favorite, id).Error; err != nil {
 		return
 	}
 	return
@@ -38,7 +38,7 @@ func (repo *FavoriteRepository) Store(f model.Favorite) (perfecture model.Favori
 }
 
 func (repo *FavoriteRepository) Update(f model.Favorite) (perfecture model.Favorite, err error) {
-	if err = repo.Set("gorm:auto_preload", true).Save(&f).Error; err != nil {
+	if err = repo.Set("gorm:auto_preload", true).Model(&model.Favorite{}).Update(&f).First(&f).Error; err != nil {
 		return
 	}
 	perfecture = f

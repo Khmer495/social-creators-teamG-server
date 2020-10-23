@@ -9,7 +9,7 @@ type PrefectureRepository struct {
 }
 
 func (repo *PrefectureRepository) FindById(id int) (prefecture model.Prefecture, err error) {
-	if err = repo.Find(&prefecture, id).Error; err != nil {
+	if err = repo.First(&prefecture, id).Error; err != nil {
 		return
 	}
 	return
@@ -31,7 +31,7 @@ func (repo *PrefectureRepository) Store(p model.Prefecture) (perfecture model.Pr
 }
 
 func (repo *PrefectureRepository) Update(p model.Prefecture) (perfecture model.Prefecture, err error) {
-	if err = repo.Save(&p).Error; err != nil {
+	if err = repo.Model(&model.Prefecture{}).Update(&p).First(&p).Error; err != nil {
 		return
 	}
 	perfecture = p

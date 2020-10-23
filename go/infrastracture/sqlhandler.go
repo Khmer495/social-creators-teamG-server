@@ -48,6 +48,10 @@ func (handler *SqlHandler) Save(value interface{}) *gorm.DB {
 	return handler.Conn.Save(value)
 }
 
+func (handler *SqlHandler) Update(attrs ...interface{}) *gorm.DB {
+	return handler.Conn.Update(attrs)
+}
+
 func (handler *SqlHandler) Delete(value interface{}) *gorm.DB {
 	return handler.Conn.Delete(value)
 }
@@ -62,6 +66,10 @@ func (handler *SqlHandler) Set(name string, value interface{}) *gorm.DB {
 
 func (handler *SqlHandler) Query() *gorm.DB {
 	return handler.Conn
+}
+
+func (handler *SqlHandler) Model(value interface{}) *gorm.DB {
+	return handler.Conn.Model(value)
 }
 
 func dbRetryConnect(count int) *gorm.DB {
