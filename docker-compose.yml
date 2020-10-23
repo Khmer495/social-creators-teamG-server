@@ -18,6 +18,8 @@ services:
     volumes:
       - ./database/data:/var/lib/mysql
       - ./database/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - backend
 
   api:
     build:
@@ -37,3 +39,8 @@ services:
       - ./go:/go/src
     depends_on:
       - db
+    networks:
+      - backend
+
+networks:
+  backend:
